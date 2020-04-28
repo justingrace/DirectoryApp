@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit member details</title>
+    <link rel="stylesheet" href="/static/css/upload.css">
+</head>
+<body>
+<h1>Edit details!</h1>
+<form method="post" enctype="application/x-www-form-urlencoded" action="<%= "/admin/" + admin_secret + "/edit/" + data.id %>">
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="<%= data.name %>">
+
+    <label for="contact">Contact Info:</label>
+    <input type="text" name="contact" value="<%= data.contact %>">
+
+    <!--<label for="file">Image:</label>-->
+    <!--<input type="file" name="file" value="file">-->
+
+    <input type="submit" value="Update">
+</form>
+
+
+<script>
+    document.querySelector("form").onsubmit = () => {
+        alert("Thank you!")
+        return true;
+    }
+</script>
+</body>
+</html>

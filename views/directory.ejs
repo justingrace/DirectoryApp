@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Island Baptist Church</title>
+    <link rel="stylesheet" href="/static/css/directory.css">
+</head>
+<body>
+
+<h1 class="title">Island Baptist Church Family!</h1>
+<div class="add_details_button">
+    <a href="/upload">
+        <img src="/static/add_circle.svg" alt="">
+        Add my details!
+    </a>
+</div>
+<div class="members">
+    <% for(var i = 0; i < data.length; i++) { %>
+        <% if(data[i].valid) { %>
+            <div class="member">
+                <img class="member_image" src="./static/directory_images/<%= data[i].image %>">
+                <div class="member_name"><%= data[i].name %></div>
+                <div class="member_contact">(<%= data[i].contact %>)</div>
+            </div>
+        <% } %>
+
+    <% } %>
+    <% if (data.length == 0) { %>
+        <p>No members yet!</p>
+    <% } %>
+</div>
+
+</body>
+</html>
