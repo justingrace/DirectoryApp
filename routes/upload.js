@@ -2,11 +2,11 @@ const router = require('express').Router();
 const multer = require("multer");
 const fs = require("fs");
 const Member = require("../models/member");
-
+const path = require('path');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads')
+        cb(null, path.resolve(__dirname, '../public'))
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
@@ -19,7 +19,7 @@ router.post(
     "/",
     upload.single("file"),
     (req, res) => {
-
+        console.log(req.file.path)
         const img = fs.readFileSync(req.file.path);
         const encode_image = img.toString('base64');
         const finalImg = {
