@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const memberData = require('../members.json');
+const {allMembers} = require('../database');
 
-router.get('/', (req, res) => {
-    res.render('directory', {data:memberData})
+router.get('/', async (req, res) => {
+    const memberData = await allMembers()
+    res.render('directory', {data: memberData})
 })
 
 module.exports = router;

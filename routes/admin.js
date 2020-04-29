@@ -1,29 +1,15 @@
 const router = require('express').Router();
-let memberData = require('../members.json');
-const fs = require('fs')
 const keys = require('../config/keys')
-
+const {allMembers, editMember, findMember, deleteMember} = require('../database');
 router.post('/validation/:id', (req, res) => {
 
     let valid=false;
     const ID = req.params.id;
     if(req.body.valid !== undefined && req.body.valid==="on"){
         valid= true;
-        console.log(valid)
     }
 
-    memberData = memberData.map((member) => {
-        if (member.id === ID) {
-            return {
-                ...member,
-                valid: !valid //toggle validity
-            }
-        } else return member
-    })
-    json = JSON.stringify(memberData);
-    fs.writeFile('./members.json', json, 'utf8', () => {
-        console.log("Write successful!")
-    });
+    editMember(ID, {valid:!valid})
 
     res
         .status(200)
@@ -32,12 +18,13 @@ router.post('/validation/:id', (req, res) => {
 
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', async (req, res) => {
     const ID = req.params.id;
-    const member = memberData.filter(member => member.id === ID);
+    const member = await findMember(ID);
+    console.log("member",member)
 
-    if(member.length===1){
-        res.render('edit', {data: member[0], admin_secret: keys.admin.secret})
+    if(member !== undefined ){
+        res.render('edit', {data: member, admin_secret: keys.admin.secret})
     }
     else{
         res.send("Invalid id")
@@ -48,22 +35,7 @@ router.get('/edit/:id', (req, res) => {
 
 router.post('/edit/:id', (req, res) => {
     const ID = req.params.id;
-
-    memberData = memberData.map(member => {
-        if (member.id === ID) {
-            return {
-                ...member,
-                name: req.body.name || member.name,
-                contact: req.body.contact || member.contact,
-            }
-        } else return member
-    })
-
-    json = JSON.stringify(memberData);
-    fs.writeFile('./members.json', json, 'utf8', () => {
-        console.log("Write successful!")
-    });
-
+    editMember(ID, req.body)
     res
         .status(200)
         .contentType("text/html")
@@ -74,28 +46,17 @@ router.post('/edit/:id', (req, res) => {
 
 router.get('/delete/:id', (req, res) => {
     const ID = req.params.id;
-    let newMemberData = [];
-
-    for(let i=0;i<memberData.length; i++){
-        if(memberData[i].id !== ID){
-            newMemberData.push(memberData[i])
-        }
-    }
-
-    json = JSON.stringify(newMemberData);
-    fs.writeFile('./members.json', json, 'utf8', () => {
-        console.log("Write successful!")
-    });
+    deleteMember(ID)
 
     res
         .status(200)
         .contentType("text/html")
-        .end("Done! <a href='/admin/'>Click here to go to homepage</a>");
+        .end("Done! <a href='/'>Click here to go to homepage</a>");
 
 })
 
-router.get('/', (req, res) => {
-    console.log()
+router.get('/', async (req, res) => {
+    const memberData = await allMembers()
     res.render('adminPortal', {data: memberData, admin_secret: keys.admin.secret})
 })
 
