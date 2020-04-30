@@ -10,12 +10,21 @@
 </head>
 <body>
 
-<h1 class="title">Island Baptist Church Family!</h1>
-<div class="add_details_button">
-    <a href="/upload">
-        <img src="/static/add_circle.svg" alt="">
-        Add my details!
-    </a>
+<div class="header">
+    <div class="empty"></div>
+    <h1 class="title">Island Baptist Church Family!</h1>
+    <div class="toolbar">
+        <a href="/upload">
+            <img src="/static/add_circle.svg" alt="">
+            Add my details
+        </a>
+
+        <a href="/edit">
+            <img src="/static/edit.svg" alt="">
+            Edit my details
+        </a>
+    </div>
+
 </div>
 <div class="members">
     <% for(var i = 0; i < data.length; i++) { %>
@@ -23,7 +32,9 @@
             <div class="member">
                 <img class="member_image" src="/upload/image/<%= data[i].id %>">
                 <div class="member_name"><%= data[i].name %></div>
-                <div class="member_contact">(<%= data[i].contact %>)</div>
+                <div class="member_contact">Phone: <%= data[i].phone %></div>
+                <div class="member_contact">Email: <%= data[i].email %></div>
+                <div class="member_contact">Birthday: <%= data[i].birthday %>🎂</div>
             </div>
         <% } %>
 

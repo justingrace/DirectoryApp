@@ -4,22 +4,37 @@
 }
 
 
-.add_details_button{
-    position: absolute;
-    top: 20px;
-    right: 20px;
+.header{
+    display: flex;
+    justify-content: center;
 }
 
-.add_details_button img{
-    width: 50px;
+.empty{
+    flex:1;
 }
-.add_details_button a{
+.toolbar{
+    align-items: flex-end;
+    flex:1;
+    display: flex;
+    flex-direction: column;
+}
+
+.toolbar img{
+    width: 40px;
+}
+.toolbar a{
+    width: 70px;
+    margin-bottom: 20px;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-size: 16px;
     color: black;
     text-decoration: none;
+    text-align: center;
+
 }
 .title{
     font-size: 50px;
@@ -80,18 +95,25 @@ input[type='checkbox']{
         margin: 20px;
     }
 
-    .add_details_button{
-        position: fixed;
-        top: auto;
-        bottom: 10px;
-        right: 10px;
+    .header{
+        flex-direction: column;
     }
 
-    .add_details_button img{
+    .empty{
+        display: none;
+    }
+    .toolbar{
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .toolbar img{
         width: 20px;
     }
-    .add_details_button a{
-        font-size: 16px;
+    .toolbar a{
+        font-size: 14px;
+        width: 60px;
+        margin-right: 0px;
     }
 
     .member{

@@ -14,8 +14,36 @@
     <label for="name">Name:</label>
     <input type="text" name="name">
 
-    <label for="contact">Contact Info:</label>
-    <input type="text" name="contact">
+    <label for="phone">Phone: (optional)</label>
+    <input type="text" name="phone">
+
+    <label for="email">Email: (optional)</label>
+    <input type="text" name="email">
+
+    <label for="birthday">Birthday:</label>
+    <div>
+        <select name="birthdayDay">
+            <% for(var i = 1; i <= 31; i++) { %>
+                <option value="<%= i %>"><%= i %></option>
+            <% } %>
+        </select>
+        <select name="birthdayMonth">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+    </div>
+
+
 
     <label for="file">Image:</label>
     <input type="file" name="file">

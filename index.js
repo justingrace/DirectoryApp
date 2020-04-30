@@ -29,5 +29,5 @@ app.use('/', directoryRoutes);
 
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log('app running')
+    console.log(process.env.PORT || 3000)
 })
