@@ -11,8 +11,11 @@ body{
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
     box-sizing: border-box;
+}
+
+h1{
+    text-align: center;
 }
 
 form{
@@ -34,28 +37,23 @@ input[type='text']{
 }
 
 input[type='submit']{
-    font-size: 25px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 12px;
     background: green;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 8px;
     border-radius: 8px;
-    width: 200px;
-
+    width: 160px;
     color: white;
     margin: 20px auto;
-    cursor: pointer;
+    font-size: 25px;
 }
 
 
 @media (max-width: 480px) {
+    body{
+        padding: 50px;
+    }
     input[type='submit']{
-        font-size: 25px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        background: green;
-        border-radius: 8px;
-        width: 160px;
-        color: white;
-        margin: 20px auto;
     }
 }
