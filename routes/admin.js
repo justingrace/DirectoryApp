@@ -13,7 +13,7 @@ router.post('/validation/:id', (req, res) => {
     editMember(ID, {valid:!valid})
 
     res.render('message', {
-        message: "<p>Success! Validated member! </p>",
+        message: "<p>Success!</p>",
         link: "/admin/"+keys.admin.secret})
 
 })
