@@ -36,85 +36,118 @@ router.post(
     "/",
     upload.single("file"),
     (req, res) => {
-        console.log(req.file.path)
-        const img = fs.readFileSync(req.file.path);
-        jo.rotate(img, {quality: 100})
-            .then(({buffer, orientation, dimensions, quality}) => {
-                // console.log(`Orientation was ${orientation}`)
-                // console.log(`Dimensions after rotation: ${dimensions.width}x${dimensions.height}`)
-                // console.log(`Quality: ${quality}`)
-                const finalImg = {
-                    data: buffer,
-                    contentType: req.file.mimetype
-                };
+        const name = req.body.name, phone = req.body.phone || undefined, email = req.body.email || undefined,
+            birthday = (req.body.birthdayDay && req.body.birthdayMonth) ? (ordinal_suffix_of(req.body.birthdayDay) + " " + req.body.birthdayMonth): undefined;
 
-                const name = req.body.name, phone = req.body.phone, email = req.body.email,
-                    birthday = ordinal_suffix_of(req.body.birthdayDay) + " " + req.body.birthdayMonth;
-                let newMember = new Member({
-                    name,
-                    phone,
-                    email,
-                    birthday,
-                    image: finalImg,
-                    valid: false
+        if(req.file){
+            const img = fs.readFileSync(req.file.path);
+            jo.rotate(img, {quality: 100})
+                .then(({buffer, orientation, dimensions, quality}) => {
+                    // console.log(`Orientation was ${orientation}`)
+                    // console.log(`Dimensions after rotation: ${dimensions.width}x${dimensions.height}`)
+                    // console.log(`Quality: ${quality}`)
+                    const finalImg = {
+                        data: buffer,
+                        contentType: req.file.mimetype
+                    };
+
+
+                    let newMember = new Member({
+                        name,
+                        phone,
+                        email,
+                        birthday,
+                        image: finalImg,
+                        valid: false
+                    })
+
+
+                    newMember.save(function (err, member) {
+                        if (err) {
+                            console.log("createMember [in saving mongoose Member]", err);
+                            res.render('message', {
+                                message: "<p>Something went wrong! Please try again!</p>",
+                                link: "/"
+                            })
+                        }
+                        if (!err) {
+
+                            res.render('message', {
+                                message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
+                                link: "/"
+                            })
+
+                        }
+                    })
                 })
+                .catch(() => {
+                    const encode_image = img.toString('base64');
+                    const finalImg = {
+                        data: Buffer.from(encode_image, 'base64'),
+                        contentType: req.file.mimetype
+                    };
 
+                    let newMember = new Member({
+                        name,
+                        phone,
+                        email,
+                        birthday,
+                        image: finalImg,
+                        valid: false
+                    })
 
-                newMember.save(function (err, member) {
-                    if (err) {
-                        console.log("createMember [in saving mongoose Member]", err);
-                        res.render('message', {
-                            message: "<p>Something went wrong! Please try again!</p>",
-                            link: "/"
-                        })
-                    }
-                    if (!err) {
+                    newMember.save(function (err, member) {
+                        if (err) {
+                            console.log("createMember [in saving mongoose Member]", err);
+                            res.render('message', {
+                                message: "<p>Something went wrong! Please try again!</p>",
+                                link: "/"
+                            })
+                        }
+                        if (!err) {
 
-                        res.render('message', {
-                            message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
-                            link: "/"
-                        })
+                            res.render('message', {
+                                message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
+                                link: "/"
+                            })
 
-                    }
+                        }
+                    })
+
                 })
+        }
+        else{
+
+            let newMember = new Member({
+                name,
+                phone,
+                email,
+                birthday,
+                valid: false
             })
-            .catch(() => {
-                const encode_image = img.toString('base64');
-                const finalImg = {
-                    data: Buffer.from(encode_image, 'base64'),
-                    contentType: req.file.mimetype
-                };
 
-                const name = req.body.name, phone = req.body.phone, email = req.body.email,
-                    birthday = ordinal_suffix_of(req.body.birthdayDay) + " " + req.body.birthdayMonth;
-                let newMember = new Member({
-                    name,
-                    phone,
-                    email,
-                    birthday,
-                    image: finalImg,
-                    valid: false
-                })
+            newMember.save(function (err, member) {
+                if (err) {
+                    console.log("createMember [in saving mongoose Member]", err);
+                    res.render('message', {
+                        message: "<p>Something went wrong! Please try again!</p>",
+                        link: "/"
+                    })
+                }
+                if (!err) {
 
-                newMember.save(function (err, member) {
-                    if (err) {
-                        console.log("createMember [in saving mongoose Member]", err);
-                        res.render('message', {
-                            message: "<p>Something went wrong! Please try again!</p>",
-                            link: "/"
-                        })
-                    }
-                    if (!err) {
+                    res.render('message', {
+                        message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
+                        link: "/"
+                    })
 
-                        res.render('message', {
-                            message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
-                            link: "/"
-                        })
-
-                    }
-                })
-
+                }
             })
+        }
+
+
+
+
     })
 
 

@@ -30,11 +30,28 @@
     <% for(var i = 0; i < data.length; i++) { %>
         <% if(data[i].valid) { %>
             <div class="member">
-                <img class="member_image" src="/upload/image/<%= data[i].id %>">
+
+                <% if(data[i].image.data) { %>
+                    <img class="member_image" src="/upload/image/<%= data[i].id %>">
+                <% } else {%>
+                    <img class="member_image" src="/static/person.svg">
+                <% } %>
+
                 <div class="member_name"><%= data[i].name %></div>
-                <div class="member_contact">Phone: <%= data[i].phone %></div>
-                <div class="member_contact">Email: <%= data[i].email %></div>
-                <div class="member_contact">Birthday: <%= data[i].birthday %>🎂</div>
+
+
+                <% if(data[i].phone) { %>
+                    <div class='member_contact'>Phone:  <%= data[i].phone %></div>
+                <% } %>
+
+                <% if(data[i].email) { %>
+                    <div class="member_contact">Email: <%= data[i].email %></div>
+                <% } %>
+
+                <% if(data[i].birthday !== "1st January") { %>
+                    <div class="member_contact">Birthday: <%= data[i].birthday %>🎂</div>
+                <% } %>
+
             </div>
         <% } %>
 

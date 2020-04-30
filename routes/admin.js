@@ -31,6 +31,7 @@ router.get('/delete/:id', (req, res) => {
 
 router.get('/', async (req, res) => {
     const memberData = await allMembers()
+
     res.render('adminPortal', {data: memberData, admin_secret: keys.admin.secret})
 })
 

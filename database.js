@@ -2,7 +2,7 @@ const Member = require("./models/member")
 
 module.exports = {
     allMembers: () => {
-        return Member.find({})
+        return Member.find({}).sort({'name': 1})
             .then((data)=>{
                 return data;
             })
