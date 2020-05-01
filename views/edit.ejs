@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="/static/css/upload.css">
 </head>
 <body>
+
+<div class="loader">
+    <img src="/static/loader.svg" alt="">
+</div>
+<div class="cancel_icon">
+    <a class="cancel" href="/"><img class="home_icon" src="../../static/clear.svg"></a>
+</div>
 <h1>Edit details!</h1>
 <form method="post" enctype="application/x-www-form-urlencoded" action="<%= "/editMember/" + data.id %>">
     <label for="name">Name:</label>
@@ -30,6 +37,7 @@
 
 <script>
     document.querySelector("form").onsubmit = () => {
+        document.querySelector(".loader").classList.add('show');
         alert("Thank you!")
         return true;
     }

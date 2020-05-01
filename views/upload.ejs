@@ -8,7 +8,16 @@
     <title>Upload entry</title>
     <link rel="stylesheet" href="/static/css/upload.css">
 </head>
+
+
 <body>
+
+<div class="loader">
+    <img src="/static/loader.svg" alt="">
+</div>
+<div class="cancel_icon">
+    <a class="cancel" href="/"><img class="home_icon" src="../../static/clear.svg"></a>
+</div>
 <h1>Enter your details!</h1>
 <form method="post" enctype="multipart/form-data" action="/upload">
     <label for="name">Name:</label>
@@ -23,11 +32,13 @@
     <label for="birthday">Birthday:</label>
     <div>
         <select name="birthdayDay">
+            <option value="">Day</option>
             <% for(var i = 1; i <= 31; i++) { %>
                 <option value="<%= i %>"><%= i %></option>
             <% } %>
         </select>
         <select name="birthdayMonth">
+            <option value="">Month</option>
             <option value="January">January</option>
             <option value="February">February</option>
             <option value="March">March</option>
@@ -54,7 +65,10 @@
 
 
 <script>
+
+
     document.querySelector("form").onsubmit = () => {
+        document.querySelector(".loader").classList.add('show');
         alert("Thank you!")
         return true;
     }

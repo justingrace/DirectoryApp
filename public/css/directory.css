@@ -19,6 +19,11 @@
     flex-direction: column;
 }
 
+.home_icon{
+    flex: 1;
+    height: 50px;
+}
+
 .toolbar img{
     width: 40px;
 }
@@ -52,12 +57,13 @@ p{
     margin: 100px;
     margin-top: 50px;
     flex-wrap: wrap;
+    justify-content: center;
+
 }
 
 .member{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    flex-basis: 33.333333%;
+    margin: 20px;
+    flex-basis: calc(33.33% - 40px);
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -85,10 +91,22 @@ input[type='checkbox']{
     display: none;
 }
 
+
+@media (max-width: 1000px){
+    .member{
+        flex-basis: calc(50% - 40px);
+    }
+}
+
 @media (max-width: 480px) {
 
     .title{
         font-size:20px;
+        padding: 0;
+    }
+
+    .home_icon{
+        height: 35px;
     }
 
     .members{
@@ -117,6 +135,7 @@ input[type='checkbox']{
     }
 
     .member{
+        margin: 10px;
         flex-basis: 100%;
     }
 
@@ -126,10 +145,11 @@ input[type='checkbox']{
     }
 
     .member_contact{
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .member_name{
-        font-size: 20px;
+        font-size: 24px;
     }
 }
+

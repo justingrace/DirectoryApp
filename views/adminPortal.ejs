@@ -10,7 +10,11 @@
 </head>
 <body>
 <div class="header">
+    <div class="home_icon">
+         <a class="go_home" href="/"><img class="home_icon" src="../../static/home.svg"></a>
+    </div>
     <h1 class="title">Island Baptist Church Family!</h1>
+    <div class="empty"></div>
 </div>
 
 </div>
@@ -39,7 +43,7 @@
                     <div class="member_contact">Email: <%= data[i].email %></div>
                 <% } %>
 
-                <% if(data[i].birthday !== "1st January") { %>
+                <% if(data[i].birthday) { %>
                     <div class="member_contact">Birthday: <%= data[i].birthday %>🎂</div>
                 <% } %>
                 <div class="member_contact">[ID=<%= data[i].id %>]</div>

@@ -49,10 +49,38 @@ input[type='submit']{
     font-size: 25px;
 }
 
+.loader{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(255, 255, 255, 0.64);
+}
+
+.loader img{
+    height: 50%;
+    width: 50%;
+}
+
+.loader.show{
+    display: flex;
+}
+
+.cancel_icon{
+    width: 100%;
+}
+.cancel_icon img{
+    height: 30px;
+}
+
 
 @media (max-width: 480px) {
     body{
-        padding: 50px;
+        padding: 20px;
     }
     input[type='submit']{
     }
