@@ -31,10 +31,16 @@
         <% if(data[i].valid) { %>
             <div class="member">
 
-                <% if(data[i].image.data) { %>
+                <!-- <% if(data[i].image.data) { %>
                     <img class="member_image" src="/upload/image/<%= data[i].id %>">
                 <% } else {%>
                     <img class="member_image" src="/static/person.svg">
+                <% } %> -->
+
+                <% if(data[i].image.data) { %>
+                    <img class="member_image" src="<%= data[i].image.data %>">
+                <% } else {%>
+                        <img class="member_image" src="/static/person.svg">
                 <% } %>
 
                 <div class="member_name"><%= data[i].name %></div>

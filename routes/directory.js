@@ -31,7 +31,21 @@ router.post('/editMember/:id', ((req, res) => {
 }))
 
 router.get('/', async (req, res) => {
-    const memberData = await allMembers()
+    let memberData = await allMembers()
+
+    memberData = memberData.map(mem => {
+        if(mem.image.data){
+            return {
+                ...mem.toJSON(),
+                image: {
+                    data: 'data:'+ mem.image.contentType +';base64,' + mem.image.data.toString('base64')
+                }
+            }
+        }
+        else return mem
+
+    })
+
     res.render('directory', {data: memberData})
 })
 
