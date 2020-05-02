@@ -42,6 +42,18 @@ body{
     text-transform: uppercase;
 }
 
+
+
+.member_id{
+    background: green;
+    color: white;
+    padding: 10px;
+    font-size: 40px;
+    border-radius: 8px;
+}
+
+
+
 @media (max-width: 480px) {
     .message-box{
         padding: 20px;
@@ -53,5 +65,9 @@ body{
     }
     .message-box p{
         font-size: 18px;
+    }
+
+    .member_id{
+        font-size: 14px;
     }
 }

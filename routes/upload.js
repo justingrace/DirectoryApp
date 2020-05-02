@@ -32,12 +32,29 @@ function ordinal_suffix_of(i) {
 }
 
 router.get('/', (req, res) => res.render('upload'))
+
+
+
 router.post(
     "/",
     upload.single("file"),
     (req, res) => {
         const name = req.body.name, phone = req.body.phone || undefined, email = req.body.email || undefined,
             birthday = (req.body.birthdayDay && req.body.birthdayMonth) ? (ordinal_suffix_of(req.body.birthdayDay) + " " + req.body.birthdayMonth): undefined;
+
+
+        function sendSuccessResponse(res, member) {
+            res.render('message', {
+                message: "<p>Success! We will validate your details and add them soon! </p> "
+                    +
+                    "<p><u>Your secret passcode is:</u></p>"
+                    +
+                    "<span class='member_id'>" + member.id + "</span>"
+                    +
+                    "<p>Keep it in case you need to edit your details!</p>",
+                link: "/"
+            })
+        }
 
         if(req.file){
             const img = fs.readFileSync(req.file.path);
@@ -72,10 +89,7 @@ router.post(
                         }
                         if (!err) {
 
-                            res.render('message', {
-                                message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
-                                link: "/"
-                            })
+                            sendSuccessResponse(res, member)
 
                         }
                     })
@@ -106,10 +120,7 @@ router.post(
                         }
                         if (!err) {
 
-                            res.render('message', {
-                                message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
-                                link: "/"
-                            })
+                            sendSuccessResponse(res, member);
 
                         }
                     })
@@ -136,10 +147,7 @@ router.post(
                 }
                 if (!err) {
 
-                    res.render('message', {
-                        message: "<p>Success! We will validate your details and add them soon! </p> <p><u>Your secret passcode is:</u> " + member.id + ". Keep it in case you need to edit your details!</p>",
-                        link: "/"
-                    })
+                    sendSuccessResponse(res, member)
 
                 }
             })

@@ -27,7 +27,7 @@
                 <!--<img class="member_image" src="/upload/image/<%= data[i].id %>">-->
 
                 <% if(data[i].image.data) { %>
-                    <img class="member_image" src="/upload/image/<%= data[i].id %>">
+                    <img class="member_image" src="<%= data[i].image.data %>">
                 <% } else {%>
                         <img class="member_image" src="/static/person.svg">
                 <% } %>
@@ -46,7 +46,7 @@
                 <% if(data[i].birthday) { %>
                     <div class="member_contact">Birthday: <%= data[i].birthday %>🎂</div>
                 <% } %>
-                <div class="member_contact">[ID=<%= data[i].id %>]</div>
+                <div class="member_contact">[ID=<%= data[i]._id %>]</div>
 
                 <div>
                     <a class="delete_member" onclick="return confirm('Are you sure you want to delete this member?')" href="<%= "/admin/" + admin_secret + "/delete/" + data[i].id %>"><img class="delete_icon" src="../../static/delete.svg"></a>
