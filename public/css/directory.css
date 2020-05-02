@@ -57,7 +57,6 @@ p{
     margin: 100px;
     margin-top: 50px;
     flex-wrap: wrap;
-    justify-content: center;
 
 }
 
@@ -93,6 +92,9 @@ input[type='checkbox']{
 
 
 @media (max-width: 1000px){
+    .members{
+        justify-content: center;
+    }
     .member{
         flex-basis: calc(50% - 40px);
     }
